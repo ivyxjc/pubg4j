@@ -1,7 +1,8 @@
 package xyz.ivyxjc.pubg4j.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -47,9 +48,9 @@ public class PubgMatchDetail {
      */
     private String titleId;
 
-    private List<Roster> rosterList;
+    private Map<String, Roster> rostetMap;
 
-    private List<ParticipantDetail> participantDetailList;
+    private Map<String, ParticipantDetail> participantDetailMap;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -62,4 +63,9 @@ public class PubgMatchDetail {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private String tags;
+
+    public PubgMatchDetail() {
+        rostetMap = new HashMap<>();
+        participantDetailMap = new HashMap<>();
+    }
 }

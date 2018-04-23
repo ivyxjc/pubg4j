@@ -1,6 +1,7 @@
 package xyz.ivyxjc.pubg4j.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -43,4 +44,8 @@ public class PubgPlayer {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private String stats;
+
+    public PubgPlayer() {
+        matches = new ArrayList<>();
+    }
 }

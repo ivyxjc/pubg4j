@@ -1,6 +1,7 @@
 package xyz.ivyxjc.pubg4j.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import xyz.ivyxjc.pubg4j.types.PlatformRegion;
 
 /**
@@ -8,36 +9,37 @@ import xyz.ivyxjc.pubg4j.types.PlatformRegion;
  * @since 4/22/2018
  */
 @Data
+@EqualsAndHashCode(of = {"participantId"})
 public class ParticipantDetail {
     private String participantId;
     private PlatformRegion shardId;
     private Integer dbnos;
     private Integer assists;
     private Integer boosts;
-    private Double damagedealt;
-    private String deathtype;
-    private Integer headshotkills;
+    private Double damageDealt;
+    private String deathType;
+    private Integer headshotKills;
     private Integer heals;
-    private Integer killplace;
-    private Integer killpoIntegers;
-    private Double killpoIntegersdelta;
-    private Integer killstreaks;
+    private Integer killPlace;
+    private Integer killPoints;
+    private Double killPointsDelta;
+    private Integer killStreaks;
     private Integer kills;
-    private Integer lastkillpoIntegers;
-    private Integer lastwinpoIntegers;
-    private Integer longestkill;
-    private Integer mostdamage;
+    private Integer lastKillPoints;
+    private Integer lastWinPoints;
+    private Double longestKill;
+    private Integer mostDamage;
     private String name;
-    private String playerid;
+    private String playerId;
     private Integer revives;
-    private Integer ridedistance;
-    private Integer roadkills;
-    private Integer teamkills;
-    private Integer timesurvived;
-    private Integer vehicledestroys;
-    private Double walkdistance;
-    private Integer weaponsacquired;
-    private Integer winplace;
-    private Integer winpoIntegers;
-    private Double winpoIntegersdelta;
+    private Double rideDistance;
+    private Integer roadKills;
+    private Integer teamKills;
+    private Integer timeSurvived;
+    private Integer vehicleDestroys;
+    private Double walkDistance;
+    private Integer weaponsAcquired;
+    private Integer winPlace;
+    private Integer winPoints;
+    private Double winPointsDelta;
 }

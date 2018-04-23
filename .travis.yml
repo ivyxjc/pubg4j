@@ -22,3 +22,6 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+after_success:
+  - gradle sonarqube -Dsonar.organization=ivyxjc-github  -Dsonar.login=$ivyxjcSonar  -Dsonar.host.url=https://sonarcloud.io

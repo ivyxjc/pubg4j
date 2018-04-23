@@ -6,6 +6,7 @@ package xyz.ivyxjc.pubg4j.types;
  */
 
 import lombok.Getter;
+import xyz.ivyxjc.pubg4j.exception.UnsupportedMapException;
 
 /**
  * string
@@ -23,5 +24,16 @@ public enum MapName {
 
     MapName(String mapName) {
         this.mapName = mapName;
+    }
+
+    public static MapName enumOf(String s) throws UnsupportedMapException {
+        switch (s) {
+            case "Desert_Main":
+                return DESERT_MAIN;
+            case "Erangel_Main":
+                return ERANGEL_MAIN;
+            default:
+                throw new UnsupportedMapException("Not support this map");
+        }
     }
 }

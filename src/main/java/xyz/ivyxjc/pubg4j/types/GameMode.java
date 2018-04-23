@@ -6,6 +6,7 @@ package xyz.ivyxjc.pubg4j.types;
  */
 
 import lombok.Getter;
+import xyz.ivyxjc.pubg4j.exception.UnsupportedGameModeException;
 
 /**
  * Enum:
@@ -24,5 +25,24 @@ public enum GameMode {
 
     GameMode(String mode) {
         this.mode = mode;
+    }
+
+    public static GameMode enumOf(String s) throws UnsupportedGameModeException {
+        switch (s) {
+            case "duo":
+                return DUO;
+            case "duo-fpp":
+                return DUO_FPP;
+            case "solo":
+                return SOLO;
+            case "solo-fpp":
+                return SOLO_FPP;
+            case "squad":
+                return SQUAD;
+            case "squad-fpp":
+                return SQUAD_FPP;
+            default:
+                throw new UnsupportedGameModeException("Not support this game mode!");
+        }
     }
 }

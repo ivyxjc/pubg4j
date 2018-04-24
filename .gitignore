@@ -30,3 +30,5 @@
 ### customs ###
 jdbc.properties
 private.yaml
+*.log
+*.log.gz

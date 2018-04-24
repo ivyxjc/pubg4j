@@ -27,7 +27,7 @@ public class PubgMatchDetail {
     /**
      * Length of the match
      */
-    private int duration;
+    private Integer duration;
 
     /**
      * Game mode played

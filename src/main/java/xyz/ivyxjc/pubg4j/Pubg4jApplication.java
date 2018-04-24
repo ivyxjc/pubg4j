@@ -24,7 +24,6 @@ public class Pubg4jApplication {
     @Bean
     public CommandLineRunner doSome() {
         return t -> {
-            System.out.println("::::::::::::::");
             mGetApi.filterPlayerName("pc-as", "Snaketc_mozz");
             mGetApi.filterMatchId("pc-as", "94cb39be-983b-491b-aadf-bc781876cda6");
         };

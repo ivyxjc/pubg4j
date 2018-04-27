@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ivyxjc.pubg4j.dao.PubgMatchDetailMapper">
+    <resultMap id="PubgMatchDetailBaseMap" type="xyz.ivyxjc.pubg4j.entity.PubgMatchDetail">
+        <result column="MATCH_ID" jdbcType="VARCHAR" property="matchId"/>
+        <result column="CREATED_AT" jdbcType="TIMESTAMP" property="createdAt"/>
+        <result column="DURATION" jdbcType="INTEGER" property="duration"/>
+        <result column="GAME_MODE" jdbcType="CHAR" property="gameMode"/>
+        <result column="MAP_NAME" jdbcType="VARCHAR" property="mapName"/>
+        <result column="SHARD_ID" jdbcType="VARCHAR" property="shardId"/>
+        <result column="TITLE_ID" jdbcType="VARCHAR" property="titleId"/>
+    </resultMap>
+    <insert id="insertPubgMatch" parameterType="xyz.ivyxjc.pubg4j.entity.PubgMatchDetail">
+        insert into PUBG_MATCH_DETAIL (MATCH_ID, CREATED_AT, DURATION,
+                                       GAME_MODE, MAP_NAME, SHARD_ID,
+                                       TITLE_ID)
+        values (#{matchId,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP},
+                #{duration,jdbcType=INTEGER},
+                #{gameMode,jdbcType=CHAR}, #{mapName,jdbcType=VARCHAR}, #{shardId,jdbcType=VARCHAR},
+                #{titleId,jdbcType=VARCHAR})
+    </insert>
+    <select id="queryByMatchId" resultMap="PubgMatchDetailBaseMap">
+        select
+            MATCH_ID,
+            CREATED_AT,
+            DURATION,
+            GAME_MODE,
+            MAP_NAME,
+            SHARD_ID,
+            TITLE_ID
+        from PUBG_MATCH_DETAIL
+        WHERE MATCH_ID = #{matchId}
+    </select>
+    <delete id="deleteByMatchIdList" parameterType="java.util.List">
+        delete from PUBG_MATCH_DETAIL where MATCH_ID in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

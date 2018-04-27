@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ivyxjc.pubg4j.dao.PubgMatchMapper">
+    <resultMap id="PubgMatchBaseMapper" type="xyz.ivyxjc.pubg4j.entity.PubgMatch">
+        <result column="PLAYER_ID" jdbcType="VARCHAR" property="playerId"/>
+        <result column="MATCH_ID" jdbcType="VARCHAR" property="matchId"/>
+    </resultMap>
+
+    <select id="queryByPlayerId" resultMap="PubgMatchBaseMapper" resultType="java.util.List">
+        select
+            PLAYER_ID,
+            MATCH_ID
+        from PUBG_PLAYER_MATCH
+        WHERE PLAYER_ID = #{playerId}
+    </select>
+
+    <insert id="insertPubgMatchList" parameterType="java.util.List">
+        insert into PUBG_PLAYER_MATCH
+        (PLAYER_ID,MATCH_ID)
+        values
+        <foreach collection="list" item="pubgMatch" index="index" separator=",">
+            (#{pubgMatch.playerId}, #{pubgMatch.matchId})
+        </foreach>
+    </insert>
+
+</mapper>

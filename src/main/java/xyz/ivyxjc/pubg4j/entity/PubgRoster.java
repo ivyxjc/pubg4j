@@ -12,15 +12,16 @@ import xyz.ivyxjc.pubg4j.types.PlatformRegion;
  */
 @Data
 @EqualsAndHashCode(of = {"rosterId"})
-public class Roster {
+public class PubgRoster {
+    private String matchId;
     private String rosterId;
     private PlatformRegion shardId;
     private Integer rank;
     private Integer teamId;
     private Boolean win;
-    private List<Participant> participantList;
+    private List<PubgParticipant> participantList;
 
-    public Roster() {
+    public PubgRoster() {
         participantList = new ArrayList<>();
     }
 }

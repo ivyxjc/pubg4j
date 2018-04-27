@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ivyxjc.pubg4j.dao.PubgParticipantMapper">
+    <resultMap id="PubgParticipantBaseMap" type="xyz.ivyxjc.pubg4j.entity.PubgParticipant">
+        <result column="PARTICIPANT_ID" jdbcType="VARCHAR" property="participantId"/>
+        <result column="MATCH_ID" jdbcType="VARCHAR" property="matchId"/>
+        <result column="ROSTER_ID" jdbcType="VARCHAR" property="rosterId"/>
+        <result column="SHARD_ID" jdbcType="VARCHAR" property="shardId"/>
+        <result column="DBNOS" jdbcType="INTEGER" property="dbnos"/>
+        <result column="ASSISTS" jdbcType="INTEGER" property="assists"/>
+        <result column="BOOSTS" jdbcType="INTEGER" property="boosts"/>
+        <result column="DAMAGE_DEALT" jdbcType="DECIMAL" property="damageDealt"/>
+        <result column="DEATH_TYPE" jdbcType="VARCHAR" property="deathType"/>
+        <result column="HEADSHOT_KILLS" jdbcType="INTEGER" property="headshotKills"/>
+        <result column="HEALS" jdbcType="INTEGER" property="heals"/>
+        <result column="KILL_PLACE" jdbcType="INTEGER" property="killPlace"/>
+        <result column="KILL_POINTS" jdbcType="INTEGER" property="killPoints"/>
+        <result column="KILL_POINTS_DELTA" jdbcType="DECIMAL" property="killPointsDelta"/>
+        <result column="KILL_STREAKS" jdbcType="INTEGER" property="killStreaks"/>
+        <result column="KILLS" jdbcType="INTEGER" property="kills"/>
+        <result column="LAST_KILL_POINTS" jdbcType="INTEGER" property="lastKillPoints"/>
+        <result column="LAST_WIN_POINTS" jdbcType="INTEGER" property="lastWinPoints"/>
+        <result column="LONGEST_KILL" jdbcType="DECIMAL" property="longestKill"/>
+        <result column="MOST_DAMAGE" jdbcType="INTEGER" property="mostDamage"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="PLAYER_ID" jdbcType="VARCHAR" property="playerId"/>
+        <result column="REVIVES" jdbcType="INTEGER" property="revives"/>
+        <result column="RIDE_DISTANCE" jdbcType="DECIMAL" property="rideDistance"/>
+        <result column="ROAD_KILLS" jdbcType="INTEGER" property="roadKills"/>
+        <result column="TEAM_KILLS" jdbcType="INTEGER" property="teamKills"/>
+        <result column="TIME_SURVIVED" jdbcType="INTEGER" property="timeSurvived"/>
+        <result column="VEHICLE_DESTROYS" jdbcType="INTEGER" property="vehicleDestroys"/>
+        <result column="WALK_DISTANCE" jdbcType="DECIMAL" property="walkDistance"/>
+        <result column="WEAPONS_ACQUIRED" jdbcType="INTEGER" property="weaponsAcquired"/>
+        <result column="WIN_PLACE" jdbcType="INTEGER" property="winPlace"/>
+        <result column="WIN_POINTS" jdbcType="INTEGER" property="winPoints"/>
+        <result column="WIN_POINTS_DELTA" jdbcType="DECIMAL" property="winPointsDelta"/>
+    </resultMap>
+
+    <select id="queryByParticipantId" resultMap="PubgParticipantBaseMap">
+        select
+            PARTICIPANT_ID,
+            MATCH_ID,
+            ROSTER_ID,
+            SHARD_ID,
+            DBNOS,
+            ASSISTS,
+            BOOSTS,
+            DAMAGE_DEALT,
+            DEATH_TYPE,
+            HEADSHOT_KILLS,
+            HEALS,
+            KILL_PLACE,
+            KILL_POINTS,
+            KILL_POINTS_DELTA,
+            KILL_STREAKS,
+            KILLS,
+            LAST_KILL_POINTS,
+            LAST_WIN_POINTS,
+            LONGEST_KILL,
+            MOST_DAMAGE,
+            NAME,
+            PLAYER_ID,
+            REVIVES,
+            RIDE_DISTANCE,
+            ROAD_KILLS,
+            TEAM_KILLS,
+            TIME_SURVIVED,
+            VEHICLE_DESTROYS,
+            WALK_DISTANCE,
+            WEAPONS_ACQUIRED,
+            WIN_PLACE,
+            WIN_POINTS,
+            WIN_POINTS_DELTA
+        from PUBG_PARTICIPANT
+        WHERE PARTICIPANT_ID = #{participantId}
+    </select>
+    <select id="queryByMatchId" resultMap="PubgParticipantBaseMap">
+        select
+            PARTICIPANT_ID,
+            MATCH_ID,
+            ROSTER_ID,
+            SHARD_ID,
+            DBNOS,
+            ASSISTS,
+            BOOSTS,
+            DAMAGE_DEALT,
+            DEATH_TYPE,
+            HEADSHOT_KILLS,
+            HEALS,
+            KILL_PLACE,
+            KILL_POINTS,
+            KILL_POINTS_DELTA,
+            KILL_STREAKS,
+            KILLS,
+            LAST_KILL_POINTS,
+            LAST_WIN_POINTS,
+            LONGEST_KILL,
+            MOST_DAMAGE,
+            NAME,
+            PLAYER_ID,
+            REVIVES,
+            RIDE_DISTANCE,
+            ROAD_KILLS,
+            TEAM_KILLS,
+            TIME_SURVIVED,
+            VEHICLE_DESTROYS,
+            WALK_DISTANCE,
+            WEAPONS_ACQUIRED,
+            WIN_PLACE,
+            WIN_POINTS,
+            WIN_POINTS_DELTA
+        from PUBG_PARTICIPANT
+        WHERE MATCH_ID = #{matchId}
+    </select>
+    <select id="queryByRosterId" resultMap="PubgParticipantBaseMap">
+        select
+            PARTICIPANT_ID,
+            MATCH_ID,
+            ROSTER_ID,
+            SHARD_ID,
+            DBNOS,
+            ASSISTS,
+            BOOSTS,
+            DAMAGE_DEALT,
+            DEATH_TYPE,
+            HEADSHOT_KILLS,
+            HEALS,
+            KILL_PLACE,
+            KILL_POINTS,
+            KILL_POINTS_DELTA,
+            KILL_STREAKS,
+            KILLS,
+            LAST_KILL_POINTS,
+            LAST_WIN_POINTS,
+            LONGEST_KILL,
+            MOST_DAMAGE,
+            NAME,
+            PLAYER_ID,
+            REVIVES,
+            RIDE_DISTANCE,
+            ROAD_KILLS,
+            TEAM_KILLS,
+            TIME_SURVIVED,
+            VEHICLE_DESTROYS,
+            WALK_DISTANCE,
+            WEAPONS_ACQUIRED,
+            WIN_PLACE,
+            WIN_POINTS,
+            WIN_POINTS_DELTA
+        from PUBG_PARTICIPANT
+        WHERE ROSTER_ID = #{rosterId}
+    </select>
+
+    <insert id="insertPubgParticipantList" parameterType="java.util.List">
+        insert into PUBG_PARTICIPANT (PARTICIPANT_ID, MATCH_ID, ROSTER_ID,
+        SHARD_ID, DBNOS, ASSISTS,
+        BOOSTS, DAMAGE_DEALT, DEATH_TYPE,
+        HEADSHOT_KILLS, HEALS, KILL_PLACE,
+        KILL_POINTS, KILL_POINTS_DELTA, KILL_STREAKS,
+        KILLS, LAST_KILL_POINTS, LAST_WIN_POINTS,
+        LONGEST_KILL, MOST_DAMAGE, NAME,
+        PLAYER_ID, REVIVES, RIDE_DISTANCE,
+        ROAD_KILLS, TEAM_KILLS, TIME_SURVIVED,
+        VEHICLE_DESTROYS, WALK_DISTANCE, WEAPONS_ACQUIRED,
+        WIN_PLACE, WIN_POINTS, WIN_POINTS_DELTA)
+        values
+        <foreach collection="list" item="pubgParticipant" index="index" separator=",">
+            (#{pubgParticipant.participantId,jdbcType=VARCHAR},
+            #{pubgParticipant.matchId,jdbcType=VARCHAR},
+            #{pubgParticipant.rosterId,jdbcType=VARCHAR},
+            #{pubgParticipant.shardId,jdbcType=VARCHAR}, #{pubgParticipant.dbnos,jdbcType=INTEGER},
+            #{pubgParticipant.assists,jdbcType=INTEGER},
+            #{pubgParticipant.boosts,jdbcType=INTEGER},
+            #{pubgParticipant.damageDealt,jdbcType=DECIMAL},
+            #{pubgParticipant.deathType,jdbcType=VARCHAR},
+            #{pubgParticipant.headshotKills,jdbcType=INTEGER},
+            #{pubgParticipant.heals,jdbcType=INTEGER},
+            #{pubgParticipant.killPlace,jdbcType=INTEGER},
+            #{pubgParticipant.killPoints,jdbcType=INTEGER},
+            #{pubgParticipant.killPointsDelta,jdbcType=DECIMAL},
+            #{pubgParticipant.killStreaks,jdbcType=INTEGER},
+            #{pubgParticipant.kills,jdbcType=INTEGER},
+            #{pubgParticipant.lastKillPoints,jdbcType=INTEGER},
+            #{pubgParticipant.lastWinPoints,jdbcType=INTEGER},
+            #{pubgParticipant.longestKill,jdbcType=DECIMAL},
+            #{pubgParticipant.mostDamage,jdbcType=INTEGER},
+            #{pubgParticipant.name,jdbcType=VARCHAR},
+            #{pubgParticipant.playerId,jdbcType=VARCHAR},
+            #{pubgParticipant.revives,jdbcType=INTEGER},
+            #{pubgParticipant.rideDistance,jdbcType=DECIMAL},
+            #{pubgParticipant.roadKills,jdbcType=INTEGER},
+            #{pubgParticipant.teamKills,jdbcType=INTEGER},
+            #{pubgParticipant.timeSurvived,jdbcType=INTEGER},
+            #{pubgParticipant.vehicleDestroys,jdbcType=INTEGER},
+            #{pubgParticipant.walkDistance,jdbcType=DECIMAL},
+            #{pubgParticipant.weaponsAcquired,jdbcType=INTEGER},
+            #{pubgParticipant.winPlace,jdbcType=INTEGER},
+            #{pubgParticipant.winPoints,jdbcType=INTEGER},
+            #{pubgParticipant.winPointsDelta,jdbcType=DECIMAL}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteByMatchIdList" parameterType="java.util.List">
+        delete from PUBG_PARTICIPANT where MATCH_ID in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

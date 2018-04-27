@@ -10,7 +10,9 @@ import xyz.ivyxjc.pubg4j.types.PlatformRegion;
  */
 @Data
 @EqualsAndHashCode(of = {"participantId"})
-public class ParticipantDetail {
+public class PubgParticipant {
+    private String matchId;
+    private String rosterId;
     private String participantId;
     private PlatformRegion shardId;
     private Integer dbnos;

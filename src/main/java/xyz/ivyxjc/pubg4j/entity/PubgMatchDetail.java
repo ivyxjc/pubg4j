@@ -48,9 +48,9 @@ public class PubgMatchDetail {
      */
     private String titleId;
 
-    private Map<String, Roster> rostetMap;
+    private Map<String, PubgRoster> rosterMap;
 
-    private Map<String, ParticipantDetail> participantDetailMap;
+    private Map<String, PubgParticipant> participantDetailMap;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -65,7 +65,7 @@ public class PubgMatchDetail {
     private String tags;
 
     public PubgMatchDetail() {
-        rostetMap = new HashMap<>();
+        rosterMap = new HashMap<>();
         participantDetailMap = new HashMap<>();
     }
 }

@@ -15,11 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import xyz.ivyxjc.pubg4j.constants.JsonConstants;
-import xyz.ivyxjc.pubg4j.entity.ParticipantDetail;
 import xyz.ivyxjc.pubg4j.entity.PubgMatch;
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail;
+import xyz.ivyxjc.pubg4j.entity.PubgParticipant;
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
-import xyz.ivyxjc.pubg4j.entity.Roster;
+import xyz.ivyxjc.pubg4j.entity.PubgRoster;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
 import xyz.ivyxjc.pubg4j.types.GameMode;
 import xyz.ivyxjc.pubg4j.types.PlatformRegion;
@@ -71,6 +71,7 @@ public class JsonBuilder {
                 String ltmId = (String) ltm.get("id");
                 Assert.notNull(ltmId, "Player's data's match id should not be nul");
                 pubgMatch.setMatchId((String) ltm.get("id"));
+                pubgMatch.setPlayerId(pubgPlayer.getPlayerId());
                 pubgPlayer.getMatches().add(pubgMatch);
             }
         }
@@ -99,48 +100,75 @@ public class JsonBuilder {
         matchDetail.setShardId(PlatformRegion.enumOf((String) attributesMap.get("shardId")));
         matchDetail.setTitleId((String) attributesMap.get("titleId"));
         for (int i = 0; i < rosterMapList.size(); i++) {
-            Roster roster = new Roster();
+            PubgRoster roster = new PubgRoster();
             LinkedTreeMap ltm = (LinkedTreeMap) rosterMapList.get(i);
             Assert.notNull(includedList, "ltm should not be null");
             String tmpId = (String) ltm.get("id");
             Assert.notNull(tmpId, "ltm.get(id) should not be null");
             roster.setRosterId(tmpId);
-            matchDetail.getRostetMap().put(roster.getRosterId(), roster);
+            matchDetail.getRosterMap().put(roster.getRosterId(), roster);
         }
 
         for (int i = 0; i < includedList.size(); i++) {
             if (includedList.get(i) instanceof LinkedTreeMap) {
                 LinkedTreeMap ltm = (LinkedTreeMap) includedList.get(i);
                 if (JsonConstants.TYPE_PARTICIPANT.equals(ltm.get("type"))) {
-                    ParticipantDetail participantDetail = new ParticipantDetail();
+                    PubgParticipant participantDetail;
                     String tmpId = (String) ltm.get("id");
                     Assert.notNull(tmpId, "participant's id should not be null");
+                    if (matchDetail.getParticipantDetailMap().containsKey(tmpId)) {
+                        participantDetail = matchDetail.getParticipantDetailMap().get(tmpId);
+                    } else {
+                        participantDetail = new PubgParticipant();
+                    }
                     participantDetail.setParticipantId(tmpId);
                     LinkedTreeMap statsLtm =
                         (LinkedTreeMap) ((LinkedTreeMap) ltm.get("attributes")).get("stats");
                     parseParticipant(participantDetail, statsLtm);
+                    participantDetail.setMatchId(matchDetail.getMatchId());
+                    matchDetail.getParticipantDetailMap()
+                        .putIfAbsent(participantDetail.getParticipantId(), participantDetail);
+
                 }
                 if (JsonConstants.TYPE_ROSTER.equals(ltm.get("type"))) {
-                    String tmpId = (String) ltm.get("id");
-                    Assert.notNull(tmpId, "roster's id should not be null");
-                    Roster roster = matchDetail.getRostetMap().get(tmpId);
+                    String tmpRosterId = (String) ltm.get("id");
+                    Assert.notNull(tmpRosterId, "roster's id should not be null");
+                    PubgRoster roster = matchDetail.getRosterMap().get(tmpRosterId);
                     LinkedTreeMap atbLtm = (LinkedTreeMap) ltm.get("attributes");
                     LinkedTreeMap statsLtm = (LinkedTreeMap) atbLtm.get("stats");
+                    roster.setMatchId(matchDetail.getMatchId());
                     roster.setShardId(PlatformRegion.enumOf((String) atbLtm.get("shardId")));
-                    if ("true".equals((String) atbLtm.get("won"))) {
+                    if ("true".equals(atbLtm.get("won"))) {
                         roster.setWin(true);
                     } else {
                         roster.setWin(false);
                     }
                     roster.setRank(((Double) statsLtm.get("rank")).intValue());
                     roster.setTeamId(((Double) statsLtm.get("teamId")).intValue());
+                    List rlsDataList =
+                        (List) ((LinkedTreeMap) ((LinkedTreeMap) ltm.get("relationships")).get(
+                            "participants")).get("data");
+                    for (int j = 0; j < rlsDataList.size(); j++) {
+                        LinkedTreeMap rlsDataLtm = (LinkedTreeMap) rlsDataList.get(j);
+                        String tmpParId = (String) rlsDataLtm.get("id");
+                        if (matchDetail.getParticipantDetailMap().containsKey(tmpParId)) {
+                            matchDetail.getParticipantDetailMap()
+                                .get(tmpParId)
+                                .setRosterId(tmpRosterId);
+                        } else {
+                            PubgParticipant participantDetail = new PubgParticipant();
+                            participantDetail.setRosterId(tmpRosterId);
+                            participantDetail.setParticipantId(tmpParId);
+                            matchDetail.getParticipantDetailMap().put(tmpParId, participantDetail);
+                        }
+                    }
                 }
             }
         }
         return matchDetail;
     }
 
-    private void parseParticipant(ParticipantDetail participant, LinkedTreeMap treeMap) {
+    private void parseParticipant(PubgParticipant participant, LinkedTreeMap treeMap) {
         participant.setDbnos(((Double) treeMap.get("DBNOs")).intValue());
         participant.setAssists(((Double) treeMap.get("assists")).intValue());
         participant.setBoosts(((Double) treeMap.get("boosts")).intValue());

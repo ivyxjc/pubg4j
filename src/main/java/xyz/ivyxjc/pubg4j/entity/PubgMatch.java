@@ -1,5 +1,6 @@
 package xyz.ivyxjc.pubg4j.entity;
 
+
 import lombok.Data;
 
 /**
@@ -8,5 +9,8 @@ import lombok.Data;
  */
 @Data
 public class PubgMatch {
+
     private String matchId;
+
+    private String playerId;
 }

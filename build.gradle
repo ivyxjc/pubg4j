@@ -42,35 +42,55 @@ configurations {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //    compile('org.springframework.boot:spring-boot-starter-data-redis')
-//    compile('org.springframework.boot:spring-boot-starter-jdbc')
-//    compile('org.springframework.boot:spring-boot-starter-web')
-//    compile('org.springframework.kafka:spring-kafka')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    //    compile('org.springframework.kafka:spring-kafka')
 //    compile('org.springframework.session:spring-session-data-redis')
 //    compile('org.springframework.session:spring-session-jdbc')
-    compile group: 'com.alibaba', name: 'druid', version: '1.1.9'
 //    runtime('org.springframework.boot:spring-boot-devtools')
     runtime('com.h2database:h2')
     runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
+
+    //test
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    //httplclient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+
+    //db
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
+//    compile group: 'com.alibaba', name: 'druid', version: '1.1.9'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2")
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
     //lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 
     //log
-//    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.0'
 
     // gson
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
     // fastjson
 //    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+
+    //swagger
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 
 }

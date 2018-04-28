@@ -9,24 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.ivyxjc.pubg4j.JsonBuilder;
-import xyz.ivyxjc.pubg4j.Pubg4jApplication;
 import xyz.ivyxjc.pubg4j.common.TestConstans;
 import xyz.ivyxjc.pubg4j.dao.PubgMatchMapper;
 import xyz.ivyxjc.pubg4j.dao.PubgPlayerMapper;
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
-import xyz.ivyxjc.pubg4j.service.PubgPlayerService;
 
 /**
  * @author Ivyxjc
  * @since 4/25/2018
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Pubg4jApplication.class)
+@SpringBootTest
 public class PubgPlayerMapperTest extends BaseMapperTest {
 
-    @Autowired
-    private PubgPlayerService mPubgPlayerService;
     @Autowired
     private PubgPlayerMapper mPubgPlayerMapper;
     @Autowired

@@ -4,11 +4,13 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import xyz.ivyxjc.pubg4j.JsonBuilder;
 import xyz.ivyxjc.pubg4j.constants.ApiConstants;
@@ -33,7 +35,9 @@ public class GetApi {
     @Autowired
     private JsonBuilder mJsonBuilder;
 
+    @Nullable
     public PubgPlayer filterPlayerName(String platformRegion, String playerName) {
+        log.debug("start filterPlayerName...");
         String url = ApiConstants.FILTER_PLAYER_NAME;
         url = String.format(url, platformRegion, playerName);
         HttpGet httpGet = new HttpGet(url);
@@ -43,6 +47,9 @@ public class GetApi {
         PubgPlayer player = null;
         try {
             response = httpClient.execute(httpGet);
+            if (HttpStatus.SC_OK != response.getStatusLine().getStatusCode()) {
+                return null;
+            }
             HttpEntity entity = response.getEntity();
             player = mJsonBuilder.buildPlayer(entity.getContent());
             log.info("player's id {}", player.getPlayerId());
@@ -52,6 +59,7 @@ public class GetApi {
         return player;
     }
 
+    @Nullable
     public PubgMatchDetail filterMatchId(String platformRegion, String matchId) {
         String url = ApiConstants.FILTER_MATCH_ID;
         url = String.format(url, platformRegion, matchId);
@@ -62,6 +70,9 @@ public class GetApi {
         PubgMatchDetail pubgMatchDetail = null;
         try {
             response = httpClient.execute(httpGet);
+            if (HttpStatus.SC_OK != response.getStatusLine().getStatusCode()) {
+                return null;
+            }
             HttpEntity entity = response.getEntity();
             pubgMatchDetail = mJsonBuilder.buildMatch(entity.getContent());
             log.info("match's id {}", pubgMatchDetail.getMatchId());

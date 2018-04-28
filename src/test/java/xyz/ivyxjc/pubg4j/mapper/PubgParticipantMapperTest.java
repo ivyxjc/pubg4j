@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import xyz.ivyxjc.pubg4j.JsonBuilder;
-import xyz.ivyxjc.pubg4j.Pubg4jApplication;
 import xyz.ivyxjc.pubg4j.common.TestConstans;
 import xyz.ivyxjc.pubg4j.dao.PubgParticipantMapper;
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail;
@@ -24,7 +23,7 @@ import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
  * @since 4/27/2018
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Pubg4jApplication.class)
+@SpringBootTest
 public class PubgParticipantMapperTest extends BaseMapperTest {
 
     @Autowired

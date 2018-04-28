@@ -51,4 +51,8 @@ public class PubgPlayerService {
         mPubgRosterMapper.deleteByMatchIdList(matchIds);
         mPubgParticipantMapper.deleteByMatchIdList(matchIds);
     }
+
+    public PubgPlayer queryByPlayerName(String playerName) {
+        return mPubgPlayerMapper.queryByPlayerName(playerName);
+    }
 }

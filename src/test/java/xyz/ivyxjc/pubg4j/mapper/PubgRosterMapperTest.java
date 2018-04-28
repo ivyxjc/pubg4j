@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import xyz.ivyxjc.pubg4j.JsonBuilder;
-import xyz.ivyxjc.pubg4j.Pubg4jApplication;
 import xyz.ivyxjc.pubg4j.dao.PubgRosterMapper;
 import xyz.ivyxjc.pubg4j.entity.PubgRoster;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
@@ -21,10 +19,8 @@ import xyz.ivyxjc.pubg4j.types.PlatformRegion;
  * @since 4/27/2018
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Pubg4jApplication.class)
+@SpringBootTest
 public class PubgRosterMapperTest extends BaseMapperTest {
-    @Autowired
-    private JsonBuilder mJsonBuilder;
 
     @Autowired
     private PubgRosterMapper mPubgRosterMapper;

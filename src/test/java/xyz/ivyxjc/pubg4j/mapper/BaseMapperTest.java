@@ -19,13 +19,13 @@ import xyz.ivyxjc.pubg4j.service.PubgPlayerService;
 @PropertySource(value = "classpath:application.properties")
 public abstract class BaseMapperTest {
     @Autowired
-    private PubgPlayerService mPubgPlayerService;
+    protected PubgPlayerService mPubgPlayerService;
     @Autowired
-    private PubgMatchService mPubgMatchService;
+    protected PubgMatchService mPubgMatchService;
     @Autowired
-    private JsonBuilder mJsonBuilder;
+    protected JsonBuilder mJsonBuilder;
     @Autowired
-    private JdbcTemplate mJdbcTemplate;
+    protected JdbcTemplate mJdbcTemplate;
 
     void preparePlayerData() throws UnsupportedPubgElementException {
         mPubgPlayerService.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);

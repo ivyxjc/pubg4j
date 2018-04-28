@@ -13,7 +13,8 @@ before_install:
 
 script:
     - ./gradlew assemble
-    - gradle clean cobertura -Dcobertura.report.format=xml
+    - gradle clean build
+    - gradle cobertura -Dcobertura.report.format=xml
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/

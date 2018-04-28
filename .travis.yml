@@ -13,15 +13,16 @@ before_install:
 
 script:
     - ./gradlew assemble
-
+    - gradle clean cobertura:cobertura -Dcobertura.report.format=xml
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    directories:
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
 
 after_success:
-  - gradle sonarqube -Dsonar.organization=ivyxjc-github  -Dsonar.login=$ivyxjcSonar  -Dsonar.host.url=https://sonarcloud.io
+    - gradle sonarqube -Dsonar.organization=ivyxjc-github  -Dsonar.login=$ivyxjcSonar  -Dsonar.host.url=https://sonarcloud.io
+    - bash <(curl -s https://codecov.io/bash)

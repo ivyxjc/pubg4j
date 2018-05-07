@@ -1,6 +1,8 @@
 package xyz.ivyxjc.pubg4j.dao;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
 
@@ -12,6 +14,8 @@ import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
 public interface PubgPlayerMapper {
     PubgPlayer queryByPlayerId(String id);
 
+    @ResultMap(value = {"PubgPlayerBaseMap"})
+    @Select("SELECT * FROM PUBG_PLAYER WHERE NAME = #{name} ")
     PubgPlayer queryByPlayerName(String name);
 
     void insertPubgPlayer(PubgPlayer pubgPlayer);

@@ -4,7 +4,7 @@
 
     <Console name="Console" target="SYSTEM_OUT">
       <!--只接受程序中DEBUG级别的日志进行处理-->
-      <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+        <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="[%d{HH:mm:ss.SSS}][%-5level][%t](%class{36}:%L %M)- %msg%xEx%n"/>
     </Console>
 
@@ -85,10 +85,10 @@
     </root>
 
     <!--记录druid-sql的记录-->
-    <logger name="druid.sql.Statement" level="debug" additivity="false">
+      <logger name="druid.sql.Statement" level="debug" additivity="true">
       <appender-ref ref="druidSqlRollingFile"/>
     </logger>
-    <logger name="druid.sql.Statement" level="debug" additivity="false">
+      <logger name="druid.sql.Statement" level="debug" additivity="true">
       <appender-ref ref="druidSqlRollingFile"/>
     </logger>
 

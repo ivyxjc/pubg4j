@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -12,12 +13,13 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PubgPlayerServiceTest {
+@PropertySource(value = "classpath:application.yaml")
+public class PubgPlayerRepoServiceImplTest {
     @Autowired
-    private PubgPlayerService mPubgPlayerService;
+    private PubgPlayerRepoServiceImpl mPubgPlayerRepoServiceImpl;
 
     @Test
     public void testDeleteAllByPlayerId() {
-        mPubgPlayerService.deleteAllByPlayerId("account.39290179b73b44d5bdb41d17ea951655");
+        mPubgPlayerRepoServiceImpl.deleteAllByPlayerId("account.39290179b73b44d5bdb41d17ea951655");
     }
 }

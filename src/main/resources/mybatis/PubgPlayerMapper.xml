@@ -25,12 +25,12 @@
         WHERE PLAYER_ID = #{playerId}
     </select>
 
-    <select id="queryByPlayerName" resultMap="PubgPlayerBaseMap"
-        resultType="xyz.ivyxjc.pubg4j.entity.PubgPlayer">
-        SELECT *
-        FROM PUBG_PLAYER
-        WHERE NAME = #{name}
-    </select>
+    <!--<select id="queryByPlayerName" resultMap="PubgPlayerBaseMap"-->
+    <!--resultType="xyz.ivyxjc.pubg4j.entity.PubgPlayer">-->
+    <!--SELECT *-->
+    <!--FROM PUBG_PLAYER-->
+    <!--WHERE NAME = #{name}-->
+    <!--</select>-->
 
     <insert id="insertPubgPlayer" parameterType="xyz.ivyxjc.pubg4j.entity.PubgPlayer">
         insert into PUBG_PLAYER (PLAYER_ID, NAME, CREATED_AT,

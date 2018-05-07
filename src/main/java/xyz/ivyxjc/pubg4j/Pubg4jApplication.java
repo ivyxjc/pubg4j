@@ -7,18 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import xyz.ivyxjc.pubg4j.httpclient.GetApi;
-import xyz.ivyxjc.pubg4j.service.PubgPlayerService;
+import xyz.ivyxjc.pubg4j.messages.MessagesProducer;
 
 @Slf4j
 @EnableAspectJAutoProxy
@@ -32,26 +34,48 @@ public class Pubg4jApplication {
     @Autowired
     private GetApi mGetApi;
 
-    @Autowired
-    private PubgPlayerService mPubgPlayerService;
-
     @Value("${druid_user}")
     private String druidUsername;
 
     @Value("${druid_password}")
     private String druidPassword;
 
+    @Autowired
+    private MessagesProducer mMessagesProducer;
 
     public static void main(String[] args) {
-        SpringApplication.run(Pubg4jApplication.class, args);
+        System.setProperty("java.security.auth.login.config",
+            "C:\\Users\\ivyxj\\Code\\kafka\\kafka_2.11-1.1.0\\kafka_client_jaas.conf");
+        System.setProperty("java.specification.version", "1.8");
+        ConfigurableApplicationContext context =
+            SpringApplication.run(Pubg4jApplication.class, args);
+
+        //MessagesProducer mp=context.getBean(MessagesProducer.class);
+        //for (int i = 0; i < 3; i++) {
+        //    //调用消息发送类中的消息发送方法
+        //    log.info("hello------");
+        //    //mp.send("hello kafka");
+        //    try {
+        //        Thread.sleep(3000);
+        //    } catch (InterruptedException e) {
+        //        e.printStackTrace();
+        //    }
+        //}
     }
 
     //@Bean
     //public CommandLineRunner doSome() {
     //    return t -> {
     //        PubgPlayer player=mGetApi.filterPlayerName("pc-as", "Snaketc_mozz");
-    //        mPubgPlayerService.insertPubgPlayer(player);
+    //        mPubgPlayerRepoServiceImpl.insertPubgPlayer(player);
     //        mGetApi.filterMatchId("pc-as", "94cb39be-983b-491b-aadf-bc781876cda6");
+    //    };
+    //}
+
+    //@Bean
+    //public CommandLineRunner sendMessage(){
+    //    return t->{
+    //        mMessagesProducer.send("Hello Kafka!");
     //    };
     //}
 
@@ -66,6 +90,9 @@ public class Pubg4jApplication {
 
     @Bean
     public CloseableHttpClient httpClient(RequestConfig requestConfig) {
+        PoolingHttpClientConnectionManager connectionManager =
+            new PoolingHttpClientConnectionManager();
+
         return HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
     }
 

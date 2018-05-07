@@ -60,7 +60,7 @@ public class PubgPlayerMapperTest extends BaseMapperTest {
     }
 
     private void prepareData() throws UnsupportedPubgElementException {
-        mPubgPlayerService.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);
+        mPubgPlayerRepoServiceImpl.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);
         InputStream in = getClass().getClassLoader().getResourceAsStream("player.json");
         PubgPlayer pubgPlayer = mJsonBuilder.buildPlayer(in);
         mPubgPlayerMapper.insertPubgPlayer(pubgPlayer);

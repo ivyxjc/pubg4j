@@ -9,36 +9,36 @@ import xyz.ivyxjc.pubg4j.common.TestConstans;
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail;
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
-import xyz.ivyxjc.pubg4j.service.PubgMatchService;
-import xyz.ivyxjc.pubg4j.service.PubgPlayerService;
+import xyz.ivyxjc.pubg4j.service.PubgMatchRepoServiceImpl;
+import xyz.ivyxjc.pubg4j.service.PubgPlayerRepoServiceImpl;
 
 /**
  * @author Ivyxjc
  * @since 4/28/2018
  */
-@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.yaml")
 public abstract class BaseMapperTest {
     @Autowired
-    protected PubgPlayerService mPubgPlayerService;
+    protected PubgPlayerRepoServiceImpl mPubgPlayerRepoServiceImpl;
     @Autowired
-    protected PubgMatchService mPubgMatchService;
+    protected PubgMatchRepoServiceImpl mPubgMatchRepoServiceImpl;
     @Autowired
     protected JsonBuilder mJsonBuilder;
     @Autowired
     protected JdbcTemplate mJdbcTemplate;
 
     void preparePlayerData() throws UnsupportedPubgElementException {
-        mPubgPlayerService.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);
+        mPubgPlayerRepoServiceImpl.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);
         InputStream in = getClass().getClassLoader().getResourceAsStream("player.json");
         PubgPlayer pubgPlayer = mJsonBuilder.buildPlayer(in);
-        mPubgPlayerService.insertPubgPlayer(pubgPlayer);
+        mPubgPlayerRepoServiceImpl.insertPubgPlayer(pubgPlayer);
     }
 
     void prepareMatchData() throws UnsupportedPubgElementException {
-        mPubgMatchService.deleteAllByMatchId(TestConstans.TEST_MATCH_ID);
+        mPubgMatchRepoServiceImpl.deleteAllByMatchId(TestConstans.TEST_MATCH_ID);
         InputStream in = getClass().getClassLoader().getResourceAsStream("match.json");
         PubgMatchDetail pubgMatch = mJsonBuilder.buildMatch(in);
-        mPubgMatchService.insertPubgMatch(pubgMatch);
+        mPubgMatchRepoServiceImpl.insertPubgMatch(pubgMatch);
     }
 
     abstract public void initData() throws UnsupportedPubgElementException;

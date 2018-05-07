@@ -32,3 +32,5 @@ jdbc.properties
 private.yaml
 *.log
 *.log.gz
+src/main/resources/application.yaml
+kafka_client_jaas.conf

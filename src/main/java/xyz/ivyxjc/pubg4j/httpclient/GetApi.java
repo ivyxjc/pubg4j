@@ -13,10 +13,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import xyz.ivyxjc.pubg4j.JsonBuilder;
-import xyz.ivyxjc.pubg4j.constants.ApiConstants;
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail;
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException;
+import xyz.ivyxjc.pubg4j.utils.ApiConstants;
 
 /**
  * @author Ivyxjc
@@ -55,6 +55,8 @@ public class GetApi {
             log.info("player's id {}", player.getPlayerId());
         } catch (IOException | UnsupportedPubgElementException e) {
             log.error(e.getMessage());
+        } finally {
+            httpGet.releaseConnection();
         }
         return player;
     }
@@ -77,7 +79,10 @@ public class GetApi {
             pubgMatchDetail = mJsonBuilder.buildMatch(entity.getContent());
             log.info("match's id {}", pubgMatchDetail.getMatchId());
         } catch (IOException | UnsupportedPubgElementException e) {
+            e.printStackTrace();
             log.error(e.getMessage());
+        } finally {
+            httpGet.releaseConnection();
         }
         return pubgMatchDetail;
     }

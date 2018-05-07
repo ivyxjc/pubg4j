@@ -10,7 +10,7 @@ spring:
             max-wait: 10000
             pool-prepared-statements: true
             max-pool-prepared-statement-per-connection-size: 20
-            max-open-prepared-statements: 20 #和上面的等价
+            max-open-prepared-statements: 20
             validation-query: SELECT 1 FROM DUAL
             validation-query-timeout: 1000
             test-on-borrow: false
@@ -20,6 +20,9 @@ spring:
             min-evictable-idle-time-millis: 300000
         schema: classpath:sql/init_structure.sql
 
+    kafka:
+        consumer:
+            group-id: test
 mybatis:
     type-aliases-package: xyz.ivyxjc.pubg4j
     mapper-locations: classpath:mybatis/*.xml

@@ -3,6 +3,8 @@ package xyz.ivyxjc.pubg4j.service
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import xyz.ivyxjc.pubg4j.dao.PubgMatchMapper
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer
 import xyz.ivyxjc.pubg4j.httpclient.GetApi
@@ -14,11 +16,11 @@ import xyz.ivyxjc.pubg4j.httpclient.GetApi
 
 interface PubgPlayerWebService {
     fun doFilter(shardId: String, playerName: String): PubgPlayer?
-    fun insertIfNotExsits(shardId: String, playerName: String)
+    fun insertIfNotExsits(shardId: String, playerName: String, refresh: Boolean): Int
 }
 
 @Service
-class PubgPlayerWebServiceImpl : PubgPlayerWebService {
+open class PubgPlayerWebServiceImpl : PubgPlayerWebService {
 
     private val log = LoggerFactory.getLogger(PubgPlayerWebServiceImpl::class.java)
 
@@ -29,21 +31,27 @@ class PubgPlayerWebServiceImpl : PubgPlayerWebService {
     private lateinit var mPubgPlayerCacheRepoService: PubgPlayerCacheRepoService
 
     @Autowired
+    private lateinit var mPubgMatchMapper: PubgMatchMapper
+
+    @Autowired
     private lateinit var mGetApi: GetApi
 
     override fun doFilter(shardId: String, playerName: String): PubgPlayer? {
         return mPugbPlayerRepoService.queryByPlayerName(shardId, playerName)
     }
 
-    override fun insertIfNotExsits(shardId: String, playerName: String) {
+    @Transactional
+    override fun insertIfNotExsits(shardId: String, playerName: String, refresh: Boolean): Int {
+
         if (!mPubgPlayerCacheRepoService.exist(shardId, playerName)) {
             val pubgPlayer = mGetApi.filterPlayerName(shardId, playerName)
             log.info("pubgPlayer detail:{}", pubgPlayer?.toString())
-            Thread.sleep(2000)
             if (pubgPlayer != null) {
-                mPugbPlayerRepoService.insertPubgPlayer(pubgPlayer)
+                return mPugbPlayerRepoService.insertPubgPlayer(pubgPlayer)
             }
+            return -1
         }
+        return -1
     }
 }
 
@@ -59,6 +67,9 @@ class PubgMatchWebServiceImpl : PubgMatchWebService {
     private lateinit var mPubgMatchRepoService: PubgMatchRepoService
 
     @Autowired
+    private lateinit var mPubgMatchCacheRepoService: PubgMatchCacheRepoService
+
+    @Autowired
     private lateinit var mGetApi: GetApi
 
     override fun doFilter(shardId: String, matchId: String): PubgMatchDetail? {
@@ -66,6 +77,9 @@ class PubgMatchWebServiceImpl : PubgMatchWebService {
     }
 
     override fun insertIfNotExsits(shardId: String, matchId: String) {
+        if (mPubgMatchCacheRepoService.exist(matchId)) {
+            return
+        }
         val pubgMatchDetail = mGetApi.filterMatchId(shardId, matchId)
         Thread.sleep(2000)
         if (pubgMatchDetail != null) {

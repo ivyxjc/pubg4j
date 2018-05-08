@@ -42,4 +42,20 @@ public class PubgMatchMapperTest extends BaseMapperTest {
         PubgMatch pubgMatch = mPubgMatchMapper.queryByMatchId(TestConstans.TEST_MATCH_ID);
         Assert.assertNotNull(pubgMatch);
     }
+
+    @Test
+    public void testQueryNewest() {
+        PubgMatch pubgMatch =
+            mPubgMatchMapper.queryNewestMatch("pc-as", TestConstans.TEST_PLAYER_ID);
+        Assert.assertNotNull(pubgMatch);
+    }
+
+    @Test
+    public void testInsertPubgMatchList() {
+        List<PubgMatch> list = mPubgMatchMapper.queryByPlayerId(TestConstans.TEST_PLAYER_ID);
+        System.out.println("++++++++++++++");
+        System.out.println(list.size());
+        mPubgPlayerRepoServiceImpl.deleteAllByPlayerId(TestConstans.TEST_PLAYER_ID);
+        mPubgMatchMapper.insertPubgMatchList(list);
+    }
 }

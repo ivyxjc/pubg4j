@@ -1,6 +1,5 @@
 package xyz.ivyxjc.pubg4j.types;
 
-import lombok.Getter;
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPlatformRegionException;
 
 /**
@@ -22,11 +21,14 @@ public enum PlatformRegion {
     PC_SA("pc-sa"),
     PC_AS("pc-as");
 
-    @Getter
     private final String pltRegion;
 
     PlatformRegion(String pltRegion) {
         this.pltRegion = pltRegion;
+    }
+
+    public String getPltRegion() {
+        return pltRegion;
     }
 
     public static PlatformRegion enumOf(String s) throws UnsupportedPlatformRegionException {

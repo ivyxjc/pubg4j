@@ -6,7 +6,8 @@
         <result column="PARTICIPANT_ID" jdbcType="VARCHAR" property="participantId"/>
         <result column="MATCH_ID" jdbcType="VARCHAR" property="matchId"/>
         <result column="ROSTER_ID" jdbcType="VARCHAR" property="rosterId"/>
-        <result column="SHARD_ID" jdbcType="VARCHAR" property="shardId"/>
+        <result column="SHARD_ID" jdbcType="CHAR" property="shardId"
+            typeHandler="xyz.ivyxjc.pubg4j.utils.PlatformRegionHandler"/>
         <result column="DBNOS" jdbcType="INTEGER" property="dbnos"/>
         <result column="ASSISTS" jdbcType="INTEGER" property="assists"/>
         <result column="BOOSTS" jdbcType="INTEGER" property="boosts"/>
@@ -36,6 +37,12 @@
         <result column="WIN_PLACE" jdbcType="INTEGER" property="winPlace"/>
         <result column="WIN_POINTS" jdbcType="INTEGER" property="winPoints"/>
         <result column="WIN_POINTS_DELTA" jdbcType="DECIMAL" property="winPointsDelta"/>
+        <result column="DB_CREATED_AT" jdbcType="TIMESTAMP" property="dbCreatedAt"/>
+        <result column="DB_CREATED_BY" jdbcType="TIMESTAMP" property="dbCreatedBy"/>
+        <result column="DB_CREATED_FROM" jdbcType="TIMESTAMP" property="dbCreatedFrom"/>
+        <result column="DB_UPDATED_AT" jdbcType="TIMESTAMP" property="dbUpdatedAt"/>
+        <result column="DB_UPDATED_BY" jdbcType="TIMESTAMP" property="dbUpdatedBy"/>
+        <result column="DB_UPDATED_FROM" jdbcType="TIMESTAMP" property="dbUpdatedFrom"/>
     </resultMap>
 
     <select id="queryByParticipantId" resultMap="PubgParticipantBaseMap">

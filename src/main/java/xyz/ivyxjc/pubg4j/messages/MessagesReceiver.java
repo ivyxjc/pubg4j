@@ -8,6 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import xyz.ivyxjc.pubg4j.service.PubgMatchWebService;
 import xyz.ivyxjc.pubg4j.service.PubgPlayerWebService;
+import xyz.ivyxjc.pubg4j.service.PubgRecevierHandlerService;
 import xyz.ivyxjc.pubg4j.utils.KafkaConstans;
 
 /**
@@ -22,6 +23,9 @@ public class MessagesReceiver {
     private PubgPlayerWebService mPubgPlayerWebService;
 
     @Autowired
+    private PubgRecevierHandlerService mPubgRecevierHandlerService;
+
+    @Autowired
     private PubgMatchWebService mPubgMatchWebService;
 
     @KafkaListener(topics = {KafkaConstans.TOPIC_PUBG_PLAYER})
@@ -30,7 +34,8 @@ public class MessagesReceiver {
         if (kafkaMessage.isPresent()) {
             String playerName = (String) kafkaMessage.get();
             log.info("--------receive-player-->: " + playerName);
-            mPubgPlayerWebService.insertIfNotExsits("pc-as", playerName);
+            //mPubgPlayerWebService.insertIfNotExsits("pc-as", playerName,true);
+            mPubgRecevierHandlerService.refreshPlayerData("pc-as", playerName);
         }
     }
 

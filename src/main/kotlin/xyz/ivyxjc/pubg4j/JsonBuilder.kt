@@ -7,6 +7,7 @@ import org.springframework.util.Assert
 import xyz.ivyxjc.pubg4j.entity.*
 import xyz.ivyxjc.pubg4j.exception.UnsupportedPubgElementException
 import xyz.ivyxjc.pubg4j.types.GameMode
+import xyz.ivyxjc.pubg4j.types.MapName
 import xyz.ivyxjc.pubg4j.types.PlatformRegion
 import xyz.ivyxjc.pubg4j.utils.JsonConstants
 import java.io.InputStream
@@ -47,7 +48,7 @@ class JsonBuilder {
                 if (ltm.size < 2) {
                     continue
                 }
-                val pubgMatch = PubgMatch(ltm["id"] as String, pubgPlayer.playerId)
+                val pubgMatch = PubgMatch(ltm["id"] as String, pubgPlayer.playerId, pubgPlayer.shardId!!)
                 val ltmId = ltm["id"] as String
                 Assert.notNull(ltmId, "Player's data's match id should not be nul")
                 pubgPlayer.matches.add(pubgMatch)
@@ -73,6 +74,7 @@ class JsonBuilder {
         matchDetail.createdAt = LocalDateTime.parse(attributesMap["createdAt"] as String, dateTimeFormatter)
         matchDetail.duration = (attributesMap["duration"] as Double).toInt()
         matchDetail.gameMode = GameMode.enumOf(attributesMap["gameMode"] as String)
+        matchDetail.mapName = MapName.enumOf(attributesMap["mapName"] as String)
         matchDetail.shardId = PlatformRegion.enumOf(attributesMap["shardId"] as String)
         matchDetail.titleId = attributesMap["titleId"] as String
         for (i in rosterMapList.indices) {

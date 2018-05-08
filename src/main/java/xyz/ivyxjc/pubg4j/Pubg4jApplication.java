@@ -44,8 +44,7 @@ public class Pubg4jApplication {
     private MessagesProducer mMessagesProducer;
 
     public static void main(String[] args) {
-        System.setProperty("java.security.auth.login.config",
-            "C:\\Users\\ivyxj\\Code\\kafka\\kafka_2.11-1.1.0\\kafka_client_jaas.conf");
+        System.setProperty("java.security.auth.login.config", "classpath:kafka_client_jaas.conf");
         System.setProperty("java.specification.version", "1.8");
         ConfigurableApplicationContext context =
             SpringApplication.run(Pubg4jApplication.class, args);

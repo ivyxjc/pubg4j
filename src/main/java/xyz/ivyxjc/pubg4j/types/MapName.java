@@ -26,6 +26,10 @@ public enum MapName {
         this.mapName = mapName;
     }
 
+    public String getMapName() {
+        return mapName;
+    }
+
     public static MapName enumOf(String s) throws UnsupportedMapException {
         switch (s) {
             case "Desert_Main":

@@ -7,7 +7,14 @@
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
         <result column="CREATED_AT" jdbcType="TIMESTAMP" property="createdAt"/>
         <result column="UPDATED_AT" jdbcType="TIMESTAMP" property="updatedAt"/>
-        <result column="SHARD_ID" jdbcType="CHAR" property="shardId"/>
+        <result column="SHARD_ID" jdbcType="CHAR" property="shardId"
+            typeHandler="xyz.ivyxjc.pubg4j.utils.PlatformRegionHandler"/>
+        <result column="DB_CREATED_AT" jdbcType="TIMESTAMP" property="dbCreatedAt"/>
+        <result column="DB_CREATED_BY" jdbcType="TIMESTAMP" property="dbCreatedBy"/>
+        <result column="DB_CREATED_FROM" jdbcType="TIMESTAMP" property="dbCreatedFrom"/>
+        <result column="DB_UPDATED_AT" jdbcType="TIMESTAMP" property="dbUpdatedAt"/>
+        <result column="DB_UPDATED_BY" jdbcType="TIMESTAMP" property="dbUpdatedBy"/>
+        <result column="DB_UPDATED_FROM" jdbcType="TIMESTAMP" property="dbUpdatedFrom"/>
         <collection property="matches" ofType="xyz.ivyxjc.pubg4j.entity.PubgMatch"
             select="xyz.ivyxjc.pubg4j.dao.PubgMatchMapper.queryByPlayerId"
             column="PLAYER_ID"/>
@@ -37,7 +44,7 @@
                                  UPDATED_AT, SHARD_ID)
         values (#{playerId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
                 #{createdAt,jdbcType=TIMESTAMP},
-                #{updatedAt,jdbcType=TIMESTAMP}, #{shardId,jdbcType=CHAR})
+                #{updatedAt,jdbcType=TIMESTAMP}, #{shardId.pltRegion,jdbcType=CHAR})
     </insert>
 
 

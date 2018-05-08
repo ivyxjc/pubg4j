@@ -9,7 +9,7 @@ import java.util.*
  * @since 4/22/2018
  */
 
-class PubgPlayer {
+class PubgPlayer : AbstractEntity {
 
     constructor()
 

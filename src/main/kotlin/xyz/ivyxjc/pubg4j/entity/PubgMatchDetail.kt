@@ -10,7 +10,7 @@ import java.util.*
  * @author Ivyxjc
  * @since 4/22/2018
  */
-class PubgMatchDetail {
+class PubgMatchDetail : AbstractEntity {
 
     constructor()
 

@@ -6,7 +6,7 @@ import xyz.ivyxjc.pubg4j.types.PlatformRegion
  * @author Ivyxjc
  * @since 4/22/2018
  */
-class PubgParticipant {
+class PubgParticipant : AbstractEntity {
 
     constructor()
 

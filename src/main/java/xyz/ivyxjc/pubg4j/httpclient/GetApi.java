@@ -38,6 +38,11 @@ public class GetApi {
     @Nullable
     public PubgPlayer filterPlayerName(String platformRegion, String playerName) {
         log.debug("start filterPlayerName...");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String url = ApiConstants.FILTER_PLAYER_NAME;
         url = String.format(url, platformRegion, playerName);
         HttpGet httpGet = new HttpGet(url);
@@ -63,6 +68,11 @@ public class GetApi {
 
     @Nullable
     public PubgMatchDetail filterMatchId(String platformRegion, String matchId) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String url = ApiConstants.FILTER_MATCH_ID;
         url = String.format(url, platformRegion, matchId);
         HttpGet httpGet = new HttpGet(url);

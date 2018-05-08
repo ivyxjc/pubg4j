@@ -1,12 +1,15 @@
 package xyz.ivyxjc.pubg4j.service
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import xyz.ivyxjc.pubg4j.dao.*
+import xyz.ivyxjc.pubg4j.entity.PubgMatch
 import xyz.ivyxjc.pubg4j.entity.PubgMatchDetail
 import xyz.ivyxjc.pubg4j.entity.PubgPlayer
 import xyz.ivyxjc.pubg4j.entity.PubgRoster
+import java.sql.SQLException
 
 /**
  * @author Ivyxjc
@@ -59,13 +62,16 @@ open class PubgMatchRepoServiceImpl : PubgMatchRepoService {
 }
 
 interface PubgPlayerRepoService {
-    fun insertPubgPlayer(pubgPlayer: PubgPlayer)
+    fun insertPubgPlayer(pubgPlayer: PubgPlayer): Int
     fun deleteAllByPlayerId(playerId: String)
     fun queryByPlayerName(shardId: String, playerName: String): PubgPlayer?
+    fun insertPubgPlayerMatchesSummar(matches: List<PubgMatch>): Int
 }
 
 @Service
 open class PubgPlayerRepoServiceImpl : PubgPlayerRepoService {
+    @JvmField
+    val logger = LoggerFactory.getLogger(PubgPlayerRepoServiceImpl::class.java)
 
     @Autowired
     private lateinit var mPubgPlayerMapper: PubgPlayerMapper
@@ -79,9 +85,10 @@ open class PubgPlayerRepoServiceImpl : PubgPlayerRepoService {
     private lateinit var mPubgParticipantMapper: PubgParticipantMapper
 
     @Transactional
-    override fun insertPubgPlayer(pubgPlayer: PubgPlayer) {
+    override fun insertPubgPlayer(pubgPlayer: PubgPlayer): Int {
         mPubgPlayerMapper.insertPubgPlayer(pubgPlayer)
         mPubgMatchMapper.insertPubgMatchList(pubgPlayer.matches)
+        return 1
     }
 
     @Transactional
@@ -101,5 +108,15 @@ open class PubgPlayerRepoServiceImpl : PubgPlayerRepoService {
 
     override fun queryByPlayerName(shardId: String, playerName: String): PubgPlayer? {
         return mPubgPlayerMapper.queryByPlayerName(playerName)
+    }
+
+    @Transactional
+    override fun insertPubgPlayerMatchesSummar(matches: List<PubgMatch>): Int {
+        try {
+            return mPubgMatchMapper.insertPubgMatchList(matches)
+        } catch (e: SQLException) {
+            logger.debug(e.message)
+        }
+        return -1
     }
 }

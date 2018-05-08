@@ -7,7 +7,7 @@ import java.util.*
  * @author Ivyxjc
  * @since 4/22/2018
  */
-class PubgRoster {
+class PubgRoster : AbstractEntity {
 
     constructor()
 

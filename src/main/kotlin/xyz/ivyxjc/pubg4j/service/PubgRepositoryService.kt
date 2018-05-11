@@ -115,7 +115,7 @@ open class PubgPlayerRepoServiceImpl : PubgPlayerRepoService {
         try {
             return mPubgMatchMapper.insertPubgMatchList(matches)
         } catch (e: SQLException) {
-            logger.debug(e.message)
+            logger.warn("insert PUBG_PLAYER_MATCH throw SQLIntegrityConstraintViolationException")
         }
         return -1
     }

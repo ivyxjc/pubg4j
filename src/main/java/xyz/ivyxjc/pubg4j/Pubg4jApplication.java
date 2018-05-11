@@ -17,7 +17,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import xyz.ivyxjc.pubg4j.httpclient.GetApi;
 import xyz.ivyxjc.pubg4j.messages.MessagesProducer;
@@ -27,8 +26,6 @@ import xyz.ivyxjc.pubg4j.messages.MessagesProducer;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan("xyz.ivyxjc.pubg4j.dao")
-@PropertySource(value = {"classpath:private.yaml", "classpath:application.yaml"},
-                ignoreResourceNotFound = false)
 public class Pubg4jApplication {
 
     @Autowired

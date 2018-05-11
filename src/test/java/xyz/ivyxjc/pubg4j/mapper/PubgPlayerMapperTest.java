@@ -47,6 +47,7 @@ public class PubgPlayerMapperTest extends BaseMapperTest {
         Assert.assertNotNull(pubgPlayer);
         Assert.assertNotNull(pubgPlayer.getMatches());
         Assert.assertTrue(pubgPlayer.getMatches().size() > 1);
+        Assert.assertEquals("pc-as", pubgPlayer.getShardId().getPltRegion());
     }
 
     @Test

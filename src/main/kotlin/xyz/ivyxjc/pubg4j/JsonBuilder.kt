@@ -95,6 +95,7 @@ class JsonBuilder {
                     val participantDetail = matchDetail.participantDetailMap.get(tmpId)
                         ?: PubgParticipant(tmpId)
                     val statsLtm = (ltm["attributes"] as LinkedTreeMap<*, *>)["stats"] as LinkedTreeMap<*, *>
+                    participantDetail.shardId = PlatformRegion.enumOf((ltm["attributes"] as LinkedTreeMap<*, *>)["shardId"] as String)
                     parseParticipant(participantDetail, statsLtm)
                     participantDetail.matchId = matchDetail.matchId
                     matchDetail.participantDetailMap

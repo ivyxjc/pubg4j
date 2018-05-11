@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import xyz.ivyxjc.pubg4j.JsonBuilder;
@@ -23,7 +22,6 @@ import xyz.ivyxjc.pubg4j.utils.ApiConstants;
  * @since 4/23/2018
  */
 @Service
-@PropertySource(value = "classpath:private.yaml", ignoreResourceNotFound = false)
 @Slf4j
 public class GetApi {
     @Autowired

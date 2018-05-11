@@ -19,7 +19,7 @@
         select
             PLAYER_ID,
             MATCH_ID,
-            lower(SHARD_ID),
+            SHARD_ID,
             DB_CREATED_AT,
             DB_CREATED_BY,
             DB_CREATED_FROM,

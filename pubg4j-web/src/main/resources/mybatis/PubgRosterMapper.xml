@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ivyxjc.pubg4j.web.dao.PubgRosterMapper">
+    <resultMap id="PubgRosterBaseMap" type="xyz.ivyxjc.pubg4j.web.entity.PubgRoster">
+        <result column="MATCH_ID" jdbcType="VARCHAR" property="matchId"/>
+        <result column="ROSTER_ID" jdbcType="VARCHAR" property="rosterId"/>
+        <result column="SHARD_ID" jdbcType="CHAR" property="shardId"
+            typeHandler="xyz.ivyxjc.pubg4j.web.utils.PlatformRegionHandler"/>
+        <result column="RANK" jdbcType="INTEGER" property="rank"/>
+        <result column="TEAM_ID" jdbcType="INTEGER" property="teamId"/>
+        <result column="WIN" jdbcType="TINYINT" property="win"/>
+        <result column="DB_CREATED_AT" jdbcType="TIMESTAMP" property="dbCreatedAt"/>
+        <result column="DB_CREATED_BY" jdbcType="TIMESTAMP" property="dbCreatedBy"/>
+        <result column="DB_CREATED_FROM" jdbcType="TIMESTAMP" property="dbCreatedFrom"/>
+        <result column="DB_UPDATED_AT" jdbcType="TIMESTAMP" property="dbUpdatedAt"/>
+        <result column="DB_UPDATED_BY" jdbcType="TIMESTAMP" property="dbUpdatedBy"/>
+        <result column="DB_UPDATED_FROM" jdbcType="TIMESTAMP" property="dbUpdatedFrom"/>
+    </resultMap>
+
+
+    <select id="queryByMatchId" resultMap="PubgRosterBaseMap">
+        select
+            MATCH_ID,
+            ROSTER_ID,
+            SHARD_ID,
+            RANK,
+            TEAM_ID,
+            WIN
+        from PUBG_ROSTER
+        WHERE MATCH_ID = #{matchId}
+    </select>
+
+    <insert id="insertPubgRosterList" parameterType="java.util.List">
+        insert into PUBG_ROSTER (MATCH_ID, ROSTER_ID, SHARD_ID,
+        RANK, TEAM_ID, WIN)
+        values
+        <foreach collection="list" item="pubgRosert" index="index" separator=",">
+            (#{pubgRosert.matchId,jdbcType=VARCHAR}, #{pubgRosert.rosterId,jdbcType=VARCHAR},
+            #{pubgRosert.shardId.pltRegion,jdbcType=VARCHAR},
+            #{pubgRosert.rank,jdbcType=INTEGER}, #{pubgRosert.teamId,jdbcType=INTEGER},
+            #{pubgRosert.win,jdbcType=TINYINT})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByMatchIdList" parameterType="java.util.List">
+        delete from PUBG_ROSTER where MATCH_ID in
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

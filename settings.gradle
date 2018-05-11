@@ -1,2 +1,4 @@
 rootProject.name = 'pubg4j'
 
+include 'pubg4j-web'
+

@@ -1,34 +1,79 @@
-buildscript {
-    ext.kotlin_version = '1.2.40'
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11' apply false
+    id "net.saliman.cobertura" version "2.5.4" apply false
+    id "org.sonarqube" version "2.6.2" apply false
+    id "org.springframework.boot" version '2.1.1.RELEASE' apply false
+    id "io.spring.dependency-management" version "1.0.6.RELEASE" apply false
+    id 'net.ltgt.apt' version '0.10' apply false
+    //id "io.franzbecker.gradle-lombok" version "1.14" apply false
+}
 
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+ext {
+    spring_boot_version = '2.1.1.RELEASE'
+    kotlin_version = '1.3.11'
+    junit_version = '4.12'
+    base_version = '0.0.1-SNAPSHOT'
 }
 
 group 'xyz.ivyxjc'
-version '0.0.1-SNAPSHOT'
+version base_version
 
-apply plugin: 'java'
-apply plugin: 'kotlin'
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'net.ltgt.apt'
+    //    apply plugin: "io.franzbecker.gradle-lombok"
+    if (name == "pubg4j-web") {
+        apply plugin: 'io.spring.dependency-management'
+        apply plugin: "net.saliman.cobertura"
+        apply plugin: "org.sonarqube"
+        apply plugin: "org.springframework.boot"
+    }
 
-sourceCompatibility = 1.8
+    group = 'xyz.ivyxjc'
+    version = base_version
+    sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    //    compileJava {
+    //        sourceCompatibility = 1.8
+    //        targetCompatibility = 1.8
+    //        options.compilerArgs += ["-proc:none"]
+    //
+    //    }
 
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
+    configurations {
+        all*.exclude group: 'ch.qos.logback', module: 'logback-core'
+        all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
+        all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: junit_version
+        //kotlin
+        compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlin_version
+        compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
+        //apache
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+        //log
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.0'
+
+        //lombok
+        compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+        annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+//        apt 'org.projectlombok:lombok:1.16.20'
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }

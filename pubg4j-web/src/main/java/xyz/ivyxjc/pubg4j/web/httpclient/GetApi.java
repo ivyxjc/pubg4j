@@ -41,7 +41,9 @@ public class GetApi {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("filterPlayerName throw exception: {}", e);
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
         }
         String url = ApiConstants.FILTER_PLAYER_NAME;
         url = String.format(url, platformRegion, playerName);
@@ -71,7 +73,9 @@ public class GetApi {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("filterMatchId throw exception: {}", e);
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
         }
         String url = ApiConstants.FILTER_MATCH_ID;
         url = String.format(url, platformRegion, matchId);
@@ -89,7 +93,7 @@ public class GetApi {
             pubgMatchDetail = mJsonBuilder.buildMatch(entity.getContent());
             log.info("match's id {}", pubgMatchDetail.getMatchId());
         } catch (IOException | UnsupportedPubgElementException e) {
-            e.printStackTrace();
+            log.error("filterMatchId throw exception: {}", e);
             log.error(e.getMessage());
         } finally {
             httpGet.releaseConnection();

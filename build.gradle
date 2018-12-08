@@ -51,22 +51,22 @@ configure(allprojects) { project ->
         sourceCompatibility = 1.8 // can be switched to 11 for testing
         targetCompatibility = 1.8
         options.encoding = "UTF-8"
-        options.compilerArgs += "-parameters"
+//        options.compilerArgs += "-parameters"
     }
 
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = ["-Xjsr305=strict"]
-        }
-    }
-
-    compileTestKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = ["-Xjsr305=strict"]
-        }
-    }
+//    compileKotlin {
+//        kotlinOptions {
+//            jvmTarget = "1.8"
+//            freeCompilerArgs = ["-Xjsr305=strict"]
+//        }
+//    }
+//
+//    compileTestKotlin {
+//        kotlinOptions {
+//            jvmTarget = "1.8"
+//            freeCompilerArgs = ["-Xjsr305=strict"]
+//        }
+//    }
 
     sourceSets {
     }

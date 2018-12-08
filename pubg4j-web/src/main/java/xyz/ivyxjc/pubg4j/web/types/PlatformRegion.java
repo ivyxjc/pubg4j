@@ -19,7 +19,8 @@ public enum PlatformRegion {
     PC_KAKAO("pc-kakao"),
     PC_SEA("pc-sea"),
     PC_SA("pc-sa"),
-    PC_AS("pc-as");
+    PC_AS("pc-as"),
+    STEAM("steam");
 
     private final String pltRegion;
 
@@ -51,6 +52,8 @@ public enum PlatformRegion {
                 return PC_SA;
             case "pc-as":
                 return PC_AS;
+            case "steam":
+                return STEAM;
             default:
                 throw new UnsupportedPlatformRegionException(
                     "Not support this platform region:" + s);

@@ -2,9 +2,8 @@ package xyz.ivyxjc.pubg4j.web.controller;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.ivyxjc.pubg4j.web.entity.PubgMatch;
 import xyz.ivyxjc.pubg4j.web.entity.PubgMatchDetail;
@@ -37,7 +36,7 @@ public class PlayerController {
     @Autowired
     private PubgMatchCacheRepoService mPubgMatchCacheRepoService;
 
-    @RequestMapping(value = {"/{shardId}/player/{name}"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/{shardId}/player/{name}"})
     public PubgPlayer queryPlayer(@PathVariable("shardId") String shardId,
         @PathVariable("name") String name) {
         mMessagesProducer.sendPlayer(shardId, name);
@@ -57,7 +56,7 @@ public class PlayerController {
         return pubgPlayer;
     }
 
-    @RequestMapping(value = "/{shardId}/match/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{shardId}/match/{id}")
     public PubgMatchDetail queryMatch(@PathVariable("shardId") String shardId,
         @PathVariable("id") String matchId) {
         return mPubgMatchWebService.doFilter(shardId, matchId);

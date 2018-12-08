@@ -39,7 +39,7 @@ class PubgPlayer : AbstractEntity {
 
     private val patchVersion: String? = null
 
-    private val stats: String? = null
+    var stats: String? = null
 
     init {
         matches = ArrayList()

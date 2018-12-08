@@ -19,10 +19,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import xyz.ivyxjc.pubg4j.web.httpclient.GetApi;
 import xyz.ivyxjc.pubg4j.web.messages.MessagesProducer;
 
 @Slf4j
+@EnableSwagger2
 @EnableAspectJAutoProxy
 @SpringBootApplication
 @EnableTransactionManagement
@@ -46,7 +48,7 @@ public class Pubg4jApplication {
         System.setProperty("java.security.auth.login.config", "classpath:kafka_client_jaas.conf");
         System.setProperty("java.specification.version", "1.8");
         ConfigurableApplicationContext context =
-            SpringApplication.run(Pubg4jApplication.class, args);
+            SpringApplication.run(Pubg4jApplication.class);
 
         //MessagesProducer mp=context.getBean(MessagesProducer.class);
         //for (int i = 0; i < 3; i++) {
@@ -87,11 +89,14 @@ public class Pubg4jApplication {
     }
 
     @Bean
-    public CloseableHttpClient httpClient(RequestConfig requestConfig) {
+    public CloseableHttpClient httpClient(@Autowired RequestConfig requestConfig) {
         PoolingHttpClientConnectionManager connectionManager =
             new PoolingHttpClientConnectionManager();
 
-        return HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
+        return HttpClients.custom()
+            .setDefaultRequestConfig(requestConfig)
+            .setConnectionManager(connectionManager)
+            .build();
     }
 
     @Bean

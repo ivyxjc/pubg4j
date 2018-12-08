@@ -20,7 +20,7 @@
 
 ### NetBeans ###
 /nbproject/private/
-/build/
+build/
 /nbbuild/
 /dist/
 /nbdist/
@@ -34,3 +34,7 @@ private.yaml
 *.log.gz
 kafka_client_jaas.conf
 application-private.yaml
+
+out/
+build/
+logs/

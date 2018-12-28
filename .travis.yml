@@ -14,7 +14,6 @@ before_install:
 script:
     - ./gradlew assemble
     - gradle clean build
-    - gradle cobertura -Dcobertura.report.format=xml
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -26,4 +25,3 @@ cache:
 
 after_success:
     - gradle sonarqube -Dsonar.organization=ivyxjc-github  -Dsonar.login=$ivyxjcSonar  -Dsonar.host.url=https://sonarcloud.io
-    - bash <(curl -s https://codecov.io/bash)

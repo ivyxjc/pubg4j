@@ -1,12 +1,11 @@
 plugins {
     id 'java'
+    id "org.sonarqube" version "2.6.2"
     id 'org.jetbrains.kotlin.jvm' version '1.3.11' apply false
     id "net.saliman.cobertura" version "2.5.4" apply false
-    id "org.sonarqube" version "2.6.2" apply false
     id "org.springframework.boot" version '2.1.1.RELEASE' apply false
     id "io.spring.dependency-management" version "1.0.6.RELEASE" apply false
     id 'net.ltgt.apt' version '0.10' apply false
-    //id "io.franzbecker.gradle-lombok" version "1.14" apply false
 }
 
 ext {
@@ -28,8 +27,6 @@ configure(allprojects) { project ->
     apply plugin: 'net.ltgt.apt'
     if (name == "pubg4j-web") {
         apply plugin: 'io.spring.dependency-management'
-        apply plugin: "net.saliman.cobertura"
-        apply plugin: "org.sonarqube"
         apply plugin: "org.springframework.boot"
     }
 
@@ -51,22 +48,22 @@ configure(allprojects) { project ->
         sourceCompatibility = 1.8 // can be switched to 11 for testing
         targetCompatibility = 1.8
         options.encoding = "UTF-8"
-//        options.compilerArgs += "-parameters"
+        options.compilerArgs += "-parameters"
     }
 
-//    compileKotlin {
-//        kotlinOptions {
-//            jvmTarget = "1.8"
-//            freeCompilerArgs = ["-Xjsr305=strict"]
-//        }
-//    }
-//
-//    compileTestKotlin {
-//        kotlinOptions {
-//            jvmTarget = "1.8"
-//            freeCompilerArgs = ["-Xjsr305=strict"]
-//        }
-//    }
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = ["-Xjsr305=strict"]
+        }
+    }
+
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = ["-Xjsr305=strict"]
+        }
+    }
 
     sourceSets {
     }

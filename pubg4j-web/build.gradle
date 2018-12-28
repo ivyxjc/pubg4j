@@ -14,7 +14,7 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
 
     //aspectJ
-//    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
+    //    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.2'
 
     //db
     compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
@@ -35,8 +35,3 @@ dependencies {
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
 }
 
-sonarqube {
-    properties {
-        property "sonar.tests", "src/test"
-    }
-}

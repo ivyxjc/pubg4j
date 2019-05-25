@@ -26,7 +26,7 @@ class HttpClientAspect {
     private var log = LoggerFactory.getLogger(HttpClientAspect::class.java)
 
 
-    @Pointcut("execution(public * org.apache.http.impl.client.CloseableHttpClient.execute(..))")
+    @Pointcut("execution(public * org.apache.http.impl.client.InternalHttpClient.execute(..))")
     fun httpClientExecute() {
     }
 

@@ -6,6 +6,7 @@ package xyz.ivyxjc.pubg4j.web.types;
  */
 
 import lombok.Getter;
+import xyz.ivyxjc.pubg4j.web.exception.UnsupportedGameModeException;
 
 /**
  * Enum:
@@ -41,8 +42,7 @@ public enum GameMode {
             case "squad-fpp":
                 return SQUAD_FPP;
             default:
-                return DUO_FPP;
-            //throw new UnsupportedGameModeException("Not support this game mode: "+s);
+                throw new UnsupportedGameModeException("Not support this game mode: " + s);
         }
     }
 }

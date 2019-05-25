@@ -41,5 +41,5 @@ public abstract class BaseMapperTest {
         mPubgMatchRepoServiceImpl.insertPubgMatch(pubgMatch);
     }
 
-    abstract public void initData() throws UnsupportedPubgElementException;
+    public abstract void initData() throws UnsupportedPubgElementException;
 }

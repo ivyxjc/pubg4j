@@ -4,7 +4,7 @@ spring:
             url: ${jdbc.url}
             username: ${jdbc.username}
             password: ${jdbc.password}
-            initial-size: 20
+            initial-size: 2
             max-active: 130
             min-idle: 5
             max-wait: 10000
@@ -22,27 +22,27 @@ spring:
                 stat:
                     merge-sql: true
                     slow-sql-millis: 800
-    kafka:
-        bootstrap-servers: ${kafka.server}
-        producer:
-            retries: 1
-            batch-size: 16384
-            buffer-memory: 33554432
-            # 指定消息key和消息体的编解码方式
-            key-serializer: org.apache.kafka.common.serialization.StringSerializer
-            value-serializer: org.apache.kafka.common.serialization.StringSerializer
-        properties:
-            # 加密方式
-            security.protocol: ${kafka.security.protocol}
-            sasl.mechanism: ${kafka.sasl.mechanism}
-        consumer:
-            auto-offset-reset: earliest
-            enable-auto-commit: true
-            # 消费者 group
-            group-id: pubg
-            # 指定消息key和消息体的编解码方式
-            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    kafka:
+#        bootstrap-servers: ${kafka.server}
+#        producer:
+#            retries: 1
+#            batch-size: 16384
+#            buffer-memory: 33554432
+#            # 指定消息key和消息体的编解码方式
+#            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#        properties:
+#            # 加密方式
+#            security.protocol: ${kafka.security.protocol}
+#            sasl.mechanism: ${kafka.sasl.mechanism}
+#        consumer:
+#            auto-offset-reset: earliest
+#            enable-auto-commit: true
+#            # 消费者 group
+#            group-id: pubg
+#            # 指定消息key和消息体的编解码方式
+#            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 mybatis:
     type-aliases-package: xyz.ivyxjc.pubg4j.web
